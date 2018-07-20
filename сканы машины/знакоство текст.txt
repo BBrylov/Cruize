@@ -1,0 +1,136 @@
+ATAIT\rI\rELM327' 'v1.5\r\r>
+ATAIT\rI\rELM327' 'v1.5\r\r>
+ATAWTSW\rS\r\r\rELM327' 'STI\rSTI\r
+ATPPS\r
+ATE0\r
+ATL0\r
+ATH0\r
+ATR1\
+rATSPSP\r
+S\r00:FF' 'F' '' '01:FF' 'F' '' '02:FF' 'F' '' '03:32' 'F\r04:01' 'F' '' '05:FF' 'F' '' '06:F1' 'F' '' '07:09' 'F\r08:FF' 'F' '' '09:00' 'F' '' '0A:0A' 'F' '' '0B:FF' 'F\r0C:68' 'F' '' '0D:0D' 'F' '' '0E:9A' 'F' '' '0F:FF' 'F\r10:0D' 'F' '' '11:00' 'F' '' '12:FF' 'F' '' '13:32' 'F\r14:FF' 'F' '' '15:0A' 'F' '' '16:FF' 'F' '' '17:92' 'F\r18:00' 'F' '' '19:28' 'F' '' '1A:FF' 'F' '' '1B:FF' 'F\r1C:FF' 'F' '' '1D:FF' 'F' '' '1E:FF' 'F' '' '1F:FF' 'F\r20:FF' 'F' '' '21:FF' 'F' '' '22:FF' 'F' '' '23:FF' 'F\r24:00' 'F' '' '25:00' 'F' '' '26:00' 'F' '' '27:FF' 'F\r28:FF' 'F' '' '29:FF' 'F' '' '2A:38' 'N' '' '2B:02' 'F\r2C:81' 'N' '' '2D:04' 'N' '' '2E:81' 'N' '' '2F:01' 'N\r\r>
+
+ATAET0E\r0\rOK\r\r>
+ATL0\rOK\r\r>
+ATH0\rOK\r\r>
+ATR1\rOK\r\r>
+ATST40\rOK\r\r>
+ATTA30\rOK\r\r>
+ATS0\rOK\r\r>
+ATAT1\rOK\r\r>
+ATCF700\rOK\r\r>
+ATCMF00\rOK\r\r>
+ATI\rELM327' 'v1.5\r\r>
+ATI\rELM327' 'v1.5\r\r>
+ATI\rELM327' 'v1.5\r\r>
+ATCAF1\rOK\r\r>
+ATTP6\rOK\r\r>
+ATST32\rOK\r\r>
+ATAT0\rOK\r\r>
+ATAL\rOK\r\r>
+ATSH0007E0\rOK\r\r>
+ATCRA7E8\rOK\r\r>
+2202001\r
+CAN' 'ERROR\r\r>
+2202001\r
+CAN' 'ERROR\r\r>
+2202001\r
+CAN' 'ERROR\r\r>
+ATTP1\rOK\r\r>
+ATAT1\rOK\r\r>
+ATSHC410F5\rOK\r\r>
+2202001\r
+NO' 'DATA\r\r>
+2202001\r
+NO' 'DATA\r\r>
+2202001\r
+NO''DATA\r\r>
+
+ATTP3\rOK\r\r>
+ATIB10\rOK\r\r>
+ATBI\rOK\r\r>
+ATNL\rOK\r\r>
+ATSH6410F5\rOK\r\r>
+2202001\r
+62020001\r\r>
+
+2211001\r
+7F2211000012\r\r>
+
+2211001\r
+7F2211000012\r\r>
+
+ATSH7410F5\rOK\r\r>
+
+231080631\r
+7F2310806312\r\r>
+
+231880631\r
+7F2318806312\r\r>
+
+ATSH6410F5\rOK\r\r>
+
+22E21B1\r
+7F22E21B0012\r\r>
+
+22E21E1\r
+7F22E21E0012\r\r>
+
+2217001\r
+621700016012\r\r>
+
+ATSH7410F5\rOK\r\r>
+
+230160121\r
+63601242333152\r\r>
+
+ATSH6410F5\rOK\r\r>
+
+22E300\r
+7F22E3000012\r\r>
+
+22E21A1\r
+7F22E21A0012\r\r>
+
+22E2171\r
+7F22E2170012\r\r>
+
+22E2191\r
+7F22E2190012\r\r>
+
+ATI\rELM327' 'v1.5\r\r>
+
+22E2001\r
+7F22E2000012\r\r>
+
+22E2211\r
+7F22E2210012\r\r>
+
+2202001\r
+62020001\r\r>
+
+ATSH4410F5\rOK\r\r>
+
+13\r
+53163100000000\r\r>
+
+ATI\rELM327' 'v1.5\r\r>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
