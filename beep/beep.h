@@ -9,6 +9,7 @@
 
 class TBeep {
   public:
+  enum EEvent : uint8_t { Idle, Message, Timeout};
   uint8_t Start(uint8_t Pin_num);
   uint8_t Loop(void);
   uint8_t SetBeep(char *Beep_com);
