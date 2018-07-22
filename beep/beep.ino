@@ -5,12 +5,12 @@
 TBeep Beep ;
 void setup() {
 
-//Serial.begin(115200);
-Beep.Start(BuZZer_pin);
-Beep.SetBeep(FPSTR(MWarning));
+  //Serial.begin(115200);
+  Beep.Start(BuZZer_pin);
+  Beep.SetBeep(FPSTR(MWarning));
 }
 
 void loop() {
 
-Beep.Loop();
+  Beep.Loop();
 }

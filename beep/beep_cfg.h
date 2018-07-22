@@ -2,7 +2,7 @@
 
 
 // константы для вывода
-const char MWarning[] PROGMEM = "SS"; 
+const char MWarning[] PROGMEM = "SS";
 
 // параметры для настройки
 #define TimeOut_Shot 100 //задержка при коротком сигнале мс
