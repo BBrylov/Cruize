@@ -4,16 +4,24 @@
 #include <HardwareSerial.h>
 #include <Esp.h>
 #include <String.h>
+#include <pgmspace.h>
 
-#define Send_Timeout 100
-#define Reciv_Timeout 100
-#define Elm_OK -1
-#define Err_Send_Timeout 1
-#define Err_ManyReciv 2
-#define Err_Reciv_Timeout 3
-#define Err_Reciv_Elm_Mess 4
-#define Err_Reciv_Avto_Mess 5
 
+//Комманды для Elm327
+char ate0[] PROGMEM = "ATE0";
+char atz[] PROGMEM = "ATZ";
+ char ath0[] PROGMEM = "ATH0";
+ char atd[] PROGMEM = "ATD";
+ char ati[] PROGMEM = "ATI";
+ char atib10[] PROGMEM = "ATIB10";
+ char atsh6410f5[] PROGMEM = "ATSH6410F5";
+ char atl0[] PROGMEM = "ATL0";
+ char atst40[] PROGMEM = "ATST40";
+ char atsp3[] PROGMEM = "ATSP3";
+ char odb_speed[] PROGMEM = "22174A1";
+
+
+ char *init_elm[] PROGMEM ={ atz, ate0, ath0, atl0, atsp3, atst40 , atib10, atsh6410f5,  NULL};
 
 
 
@@ -22,6 +30,25 @@
 //Конструктор
 TElm327::TElm327(int8_t uart_nr): HardwareSerial(uart_nr) {};
 
+int8_t TElm327::SetupElm(unsigned long baud)
+{
+  this->begin(baud);
+  delayMicroseconds(500);
+  int8_t myError = 0;
+  for (uint8_t i = 0; init_elm[i]; i++)  {
+    Send_Mess(init_elm[i]);
+    while (LoopSerial() < 0)
+      if (Elm_state() > 0){
+        myError++;
+        break;
+      }
+  }
+  if (myError)  {
+    FErrorElm = 1;
+  }
+  return (myError);
+}
+
 int8_t TElm327::TX_Finish(void) {
   if (_uart == NULL || !(uart_tx_enabled(_uart))) {
     return 0;
@@ -29,18 +56,18 @@ int8_t TElm327::TX_Finish(void) {
   return  ((USS(_uart_nr) >> USTXC) & 0xff);
 }
 
-uint8_t TElm327::Loop(void) {
+int8_t TElm327::LoopSerial(void) {
   static uint32_t lastime;
-  int32_t time_now;
+  //int32_t time_now;
   char *_pointer;
   switch (state) {
     case 0: //Ждем посылки
       if (this->available()) this->read();
       if (Event != Message) break;
       lastime = millis();
-      this->print(command);
+      this->println(command);
       state = 1;
-      Error = 0;
+      Error = 6;
       break;
     case 1://Ждем окончания передачи пакета
       if (millis() - lastime > Send_Timeout) {
@@ -98,19 +125,16 @@ uint8_t TElm327::Loop(void) {
      }
      pointer=0;
 
-
-
-
-     
       break;
     default:
       state = 0;
       break;
   }
+  return Error;
 }
 
 
-uint8_t TElm327::Send_Mess(char *Beep_com)
+void TElm327::Send_Mess(char *Beep_com)
 {
   pointer = 0;
   strncpy(command, Beep_com, sizeof(command) - 1);
@@ -118,7 +142,7 @@ uint8_t TElm327::Send_Mess(char *Beep_com)
   Event = Message;
 
 }
-uint8_t TElm327::Send_Mess(const __FlashStringHelper * Beep_com)
+void TElm327::Send_Mess(const __FlashStringHelper * Beep_com)
 {
   pointer = 0;
   strncpy_P(command, (PGM_P)Beep_com, sizeof(command) - 1);
@@ -127,3 +151,11 @@ uint8_t TElm327::Send_Mess(const __FlashStringHelper * Beep_com)
 
 }
 
+int TElm327::Elm_state(void){
+return Error;
+}
+
+char* TElm327::Recive_Messege(void){
+  if (Error<0) return Recive_Buf;
+  else return NULL;
+}

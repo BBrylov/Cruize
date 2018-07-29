@@ -1,4 +1,5 @@
-#include <Arduino.h>
+#include <pgmspace.h>
+
 #include "ESPWeb.h"
 #include "Date.h"
 #include "Schedule.h"
@@ -6,9 +7,16 @@
 #include "beep.h"
 #include "beep_cfg.h"
 #include "Elm327.h"
+#include "cruize-const.h"
+
 
 TElm327 Elm327(UART0);
 TBeep Beep ;
+
+
+
+
+
 
 class EspAutoComp  : public ESPWebBase{
 public:
@@ -26,10 +34,15 @@ private:
 
 void EspAutoComp::setupExtra(){
     ESPWebBase::setupExtra();
+    Elm327.SetupElm(9600);
 }
 
 void EspAutoComp::loopExtra(){
     ESPWebBase::loopExtra();
+
+
+
+
 
 }
 
@@ -40,11 +53,6 @@ void EspAutoComp::loopExtra(){
 EspAutoComp* app = new EspAutoComp();
 
 void setup() {
-#ifndef NOSERIAL
-  Serial.begin(115200, SERIAL_8N1, SERIAL_TX_ONLY);
-  Serial.println();
-#endif
-
   app->setup();
 }
 

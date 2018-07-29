@@ -1,6 +1,6 @@
 #ifndef __ESPWEB_H
 #define __ESPWEB_H
-
+#include <Arduino.h>
 #include "ESPWebCfg.h"
 #include <ESP8266WebServer.h>
 #include "StringLog.h"

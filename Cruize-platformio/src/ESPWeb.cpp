@@ -1,6 +1,7 @@
 extern "C" {
 #include <sntp.h>
 }
+#include <Arduino.h>
 #include <pgmspace.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
