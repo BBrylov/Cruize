@@ -33,19 +33,26 @@ TElm327::TElm327(int8_t uart_nr): HardwareSerial(uart_nr) {};
 int8_t TElm327::SetupElm(unsigned long baud)
 {
   this->begin(baud);
+  this->println();
+  //this->println("Init Elm327 ..." );
   delayMicroseconds(500);
   int8_t myError = 0;
   for (uint8_t i = 0; init_elm[i]; i++)  {
     Send_Mess(init_elm[i]);
-    while (LoopSerial() < 0)
-      if (Elm_state() > 0){
+      while (LoopSerial() == Elm_busy);
+//       this->print("Error ");this->println(Elm_state());
+      if (Elm_state() > 0 ){
+//        this->print("Error found " );this->println(Elm_state() );
         myError++;
         break;
       }
   }
+  
   if (myError)  {
     FErrorElm = 1;
-  }
+    //this->println("Init Elm327 Error." );
+  }else {//this->println("Init Elm327 finish." )
+  ;}
   return (myError);
 }
 
@@ -67,7 +74,7 @@ int8_t TElm327::LoopSerial(void) {
       lastime = millis();
       this->println(command);
       state = 1;
-      Error = 6;
+      Error = -6;
       break;
     case 1://Ждем окончания передачи пакета
       if (millis() - lastime > Send_Timeout) {
@@ -86,8 +93,10 @@ int8_t TElm327::LoopSerial(void) {
       }
       break;
     case 2:// получаем данные
+    
+    
       while (this->available()) {
-        pointer++;
+        
         if (pointer > 9) {
           Error = Err_ManyReciv;
           state = 0;
@@ -97,13 +106,12 @@ int8_t TElm327::LoopSerial(void) {
         if ( Recive_Buf[pointer] == '>') { // посылка от Elm327 закончена
           state = 3; //переходим в анализ ответа от Elm327
           Recive_Buf[pointer + 1] = '\0';
-          break;
         }
         if ( Recive_Buf[pointer] == '\r') { // посылка от авто закончена
           state = 4; // переходим в анализ данных от автомобиля
           Recive_Buf[pointer + 1] = '\0';
-          break;
         }
+        pointer++;
       }
       if (millis() - lastime > Reciv_Timeout) {
         Error = Err_Reciv_Timeout;
@@ -113,6 +121,7 @@ int8_t TElm327::LoopSerial(void) {
       break;
     case 3://разбор ответа от Elm327
     {
+//      this->print("Recive ELM - " );this->println(Recive_Buf );
      char *_pointer=strchr( Recive_Buf,'O' ) ;
      if (!_pointer) {Error = Err_Reciv_Elm_Mess; state=0; break;}
       if (*(_pointer+1)=='K')  {Error=Elm_OK;state=0;break;}
@@ -120,14 +129,17 @@ int8_t TElm327::LoopSerial(void) {
       break;
     case 4://разбор от автомобиля
      {
+//     this->print("Recive Avto - " );this->println(Recive_Buf );
       char *_pointer=strchr( Recive_Buf,'\r' ) ;
       if (!_pointer) {Error = Err_Reciv_Avto_Mess; state=0; break;}
+     Error = Elm_OK; state=0; break;
      }
      pointer=0;
 
       break;
     default:
       state = 0;
+      Error = Elm_OK;
       break;
   }
   return Error;

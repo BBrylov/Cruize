@@ -9,16 +9,16 @@
 
 
 //Параметры для настройки
-#define Send_Timeout 100
-#define Reciv_Timeout 100
+#define Send_Timeout 10000
+#define Reciv_Timeout 10000
 //Коды ошибок
-#define Elm_OK -1
+#define Elm_OK 0
 #define Err_Send_Timeout 1
 #define Err_ManyReciv 2
 #define Err_Reciv_Timeout 3
-#define Err_Reciv_Elm_Mess -2
-#define Err_Reciv_Avto_Mess -3
-#define Elm_busy 6
+#define Err_Reciv_Elm_Mess 4
+#define Err_Reciv_Avto_Mess 5
+#define Elm_busy -6
 
 
 class TElm327: public HardwareSerial {
@@ -36,12 +36,12 @@ class TElm327: public HardwareSerial {
 
 
   private:
-    char command[10];
+    char command[20];
     uint8_t pointer;
     EEvent Event;
     uint8_t state;
     int8_t Error;
-    char Recive_Buf[10];
+    char Recive_Buf[20];
     uint8_t Recive_hex[10];
     int8_t FErrorElm=0;//общая ошибка инициализации ELM327
 };

@@ -34,7 +34,9 @@ private:
 
 void EspAutoComp::setupExtra(){
     ESPWebBase::setupExtra();
-    Elm327.SetupElm(9600);
+    _log->println(F("ELM327 init started."));
+    if (!Elm327.SetupElm(9600)) _log->println(F("ELM327 init Finish."));
+    else _log->println(F("ELM327 init Error."));
 }
 
 void EspAutoComp::loopExtra(){
@@ -53,9 +55,15 @@ void EspAutoComp::loopExtra(){
 EspAutoComp* app = new EspAutoComp();
 
 void setup() {
-  app->setup();
+//    delayMicroseconds(500);
+ //Elm327.begin(9600);
+ //Elm327.println("Hi sdfjksdkfgbsk");
+ //Elm327.println("Hi dlskfndklfjsjkdgkjg");
+
+ app->setup();
 }
 
 void loop() {
+ //Elm327.println("Hi");
   app->loop();
 }
