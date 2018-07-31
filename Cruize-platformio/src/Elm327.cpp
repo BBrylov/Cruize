@@ -20,7 +20,7 @@ char atz[] PROGMEM = "ATZ";
  char atsp3[] PROGMEM = "ATSP3";
  char odb_speed[] PROGMEM = "22174A1";
 
-
+//Строка инициализации обмена с Elm327
  char *init_elm[] PROGMEM ={ atz, ate0, ath0, atl0, atsp3, atst40 , atib10, atsh6410f5,  NULL};
 
 
@@ -29,6 +29,28 @@ char atz[] PROGMEM = "ATZ";
 
 //Конструктор
 TElm327::TElm327(int8_t uart_nr): HardwareSerial(uart_nr) {};
+
+int8_t TElm327::Loop(void){
+  
+}
+
+unsigned int TElm327::hexToDec(char *hexString) {
+  unsigned int decValue = 0;
+  int nextInt;
+  
+  for (int i = 0; i < 1; i++) {
+    
+    nextInt = int(hexString[i]);
+    if (nextInt >= 48 && nextInt <= 57) nextInt = map(nextInt, 48, 57, 0, 9);
+    if (nextInt >= 65 && nextInt <= 70) nextInt = map(nextInt, 65, 70, 10, 15);
+    if (nextInt >= 97 && nextInt <= 102) nextInt = map(nextInt, 97, 102, 10, 15);
+    nextInt = constrain(nextInt, 0, 15);
+    decValue = (decValue * 16) + nextInt;
+  }
+  return decValue;
+}
+
+
 
 int8_t TElm327::SetupElm(unsigned long baud)
 {
@@ -133,8 +155,12 @@ int8_t TElm327::LoopSerial(void) {
       char *_pointer=strchr( Recive_Buf,'\r' ) ;
       if (!_pointer) {Error = Err_Reciv_Avto_Mess; state=0; break;}
      Error = Elm_OK; state=0; break;
-     }
      pointer=0;
+     for(uint8_t i=0; i< sizeof(Recive_Buf); i=i+2){
+      Recive_hex[i/2]=hexToDec(Recive_Buf[i]);
+     }
+     }
+     
 
       break;
     default:

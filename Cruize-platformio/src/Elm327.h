@@ -26,6 +26,8 @@ class TElm327: public HardwareSerial {
     TElm327(int8_t uart_nr);
 
     enum EEvent : uint8_t { Idle, Message, Timeout, Send_Mes, Reciv_Mes };
+    int8_t Loop(void); // основной автомат управления
+    unsigned int hexToDec(char *hexString);
     int8_t LoopSerial(void); // основной автомат низкокго уровня передачи
     void Send_Mess(char *Beep_com);//посылает посылку из озу
     void Send_Mess(const __FlashStringHelper *Beep_com);//посылает посылку из eeprom

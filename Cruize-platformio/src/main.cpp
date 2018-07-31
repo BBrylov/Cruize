@@ -34,14 +34,21 @@ private:
 
 void EspAutoComp::setupExtra(){
     ESPWebBase::setupExtra();
+    Beep.Start(BuZZer_pin);
     _log->println(F("ELM327 init started."));
-    if (!Elm327.SetupElm(9600)) _log->println(F("ELM327 init Finish."));
-    else _log->println(F("ELM327 init Error."));
+    if (!Elm327.SetupElm(9600)) {
+        _log->println(F("ELM327 init Finish."));
+        Beep.SetBeep(FPSTR(BStart));
+    }
+    else {
+        _log->println(F("ELM327 init Error."));
+        Beep.SetBeep(FPSTR(BFatalError));
+    }
 }
 
 void EspAutoComp::loopExtra(){
     ESPWebBase::loopExtra();
-
+Beep.Loop();
 
 
 

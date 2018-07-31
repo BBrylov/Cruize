@@ -2,7 +2,11 @@
 
 
 // константы для вывода
-const char MWarning[] PROGMEM = "SS";
+//Бипы для TBeep
+const char BStart[] PROGMEM = "SS";
+const char BError[] PROGMEM = "LLL";
+const char BFatalError[] PROGMEM = "LLLSSSLLL";
+
 
 // параметры для настройки
 #define TimeOut_Shot 100 //задержка при коротком сигнале мс
