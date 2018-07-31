@@ -18,7 +18,10 @@
 #define Err_Reciv_Timeout 3
 #define Err_Reciv_Elm_Mess 4
 #define Err_Reciv_Avto_Mess 5
+#define Fatal_Error 6
 #define Elm_busy -6
+
+
 
 
 class TElm327: public HardwareSerial {
@@ -26,8 +29,7 @@ class TElm327: public HardwareSerial {
     TElm327(int8_t uart_nr);
 
     enum EEvent : uint8_t { Idle, Message, Timeout, Send_Mes, Reciv_Mes };
-    int8_t Loop(void); // основной автомат управления
-    unsigned int hexToDec(char *hexString);
+   // int8_t Loop(void); // основной автомат управления
     int8_t LoopSerial(void); // основной автомат низкокго уровня передачи
     void Send_Mess(char *Beep_com);//посылает посылку из озу
     void Send_Mess(const __FlashStringHelper *Beep_com);//посылает посылку из eeprom
@@ -35,9 +37,15 @@ class TElm327: public HardwareSerial {
     int Elm_state(void);// опрос состояния автомата по работе с ELM. возвращается код ошибки.
     char* Recive_Messege(void); //выдать указатель на символьное сообщение принятое от Elm или автомобиля
     int8_t SetupElm(unsigned long baud);// установка параметра скорости порта и иницализации ELM из массива init_elm
-
-
+    uint8_t* Recive_Hex(void);//возврат байтов с автомобиля
+    
+  
+  protected:
+    unsigned int hexToDec(char *hexString);
   private:
+  
+//Строка инициализации обмена с Elm327
+   
     char command[20];
     uint8_t pointer;
     EEvent Event;
